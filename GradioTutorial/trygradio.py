@@ -5,39 +5,23 @@ title="博物馆小助手"
 
 description = "点击按钮，向AI提关于该文物的问题"
 
-image_patha = "GradioTutorial/Artifacts/A/pic.jpg"
-image_pathb = "GradioTutorial/Artifacts/B/pic.jpg"
-image_pathc = "GradioTutorial/Artifacts/C/pic.jpg"
-image_pathd = "GradioTutorial/Artifacts/D/pic.jpg"
-
-
 situation = ''
 
+def greet(relic):
+    #print(relic)
+    try:
+        image = Image.open(f"GradioTutorial/Artifacts/{relic}/pic.jpg")
+        intro = open(f"GradioTutorial/Artifacts/{relic}/intro.txt", "r").read()
+    except:
+        print(f"Failed to open File with argument relic = {relic}.")
+        image = None
+        intro = ""
+    global situation
+    situation = relic
+    def func():
+        return image, intro
+    return func
 
-def greeta ():
-    image=Image.open(image_patha)
-    a1='马踏飞燕' #介绍
-    global situation
-    situation = 'a'
-    return image,a1
-def greetb ():
-    image=Image.open(image_pathb)
-    b1='av'
-    global situation
-    situation = 'b'
-    return image,b1
-def greetc ():
-    image=Image.open(image_pathc)
-    c1='gv'
-    global situation
-    situation = 'c'
-    return image,c1
-def greetd ():
-    image=Image.open(image_pathd)
-    d1='vev'
-    global situation
-    situation = 'd'
-    return image,d1
 def ai(question):
     question = list(question)
     #for i in question:
@@ -76,8 +60,8 @@ with gr.Blocks() as demo:
     
     submit.click(fn=ai,inputs=question,outputs=answer)
     clear.click(fn=clear_input,inputs=[],outputs=[question,answer])
-    a.click(fn=greeta,inputs=[],outputs=[imagew,introduction])
-    b.click(fn=greetb,inputs=[],outputs=[imagew,introduction])
-    c.click(fn=greetc,inputs=[],outputs=[imagew,introduction])
-    d.click(fn=greetd,inputs=[],outputs=[imagew,introduction])
+    a.click(fn=greet('a'),inputs=[],outputs=[imagew,introduction])
+    b.click(fn=greet('b'),inputs=[],outputs=[imagew,introduction])
+    c.click(fn=greet('c'),inputs=[],outputs=[imagew,introduction])
+    d.click(fn=greet('d'),inputs=[],outputs=[imagew,introduction])
 demo.launch()
