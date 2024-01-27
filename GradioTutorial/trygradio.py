@@ -5,10 +5,11 @@ title="博物馆小助手"
 
 description = "点击按钮，向AI提关于该文物的问题"
 
-image_patha="/home/charlie/GradioTutorial/a.jpg"
-image_pathb="/home/charlie/GradioTutorial/b.jpg"
-image_pathc="/home/charlie/GradioTutorial/c.jpg"
-image_pathd="/home/charlie/GradioTutorial/d.jpg"
+image_patha = "GradioTutorial/Artifacts/A/pic.jpg"
+image_pathb = "GradioTutorial/Artifacts/B/pic.jpg"
+image_pathc = "GradioTutorial/Artifacts/C/pic.jpg"
+image_pathd = "GradioTutorial/Artifacts/D/pic.jpg"
+
 
 situation = ''
 
@@ -58,18 +59,21 @@ with gr.Blocks() as demo:
     gr.Markdown("# 博物馆小助手")
     gr.Markdown("点击按钮，向AI提关于该文物的问题")
     with gr.Row():
-        a=gr.Button("a")
+        a=gr.Button("马踏飞燕")
         b=gr.Button("b")
         c=gr.Button("c")
         d=gr.Button("d")
-    with gr.Row():
+    imagew = gr.Image()
+    introduction = gr.Textbox(label="introduction")
+    with gr.Column():
         question=gr.Textbox(label="question")
         answer= gr.Textbox(label="answer")
-    introduction = gr.Textbox(label="introduction")
     with gr.Row():
         submit=gr.Button("submit")
         clear=gr.Button("clear")
-    imagew = gr.Image()
+    
+    
+    
     submit.click(fn=ai,inputs=question,outputs=answer)
     clear.click(fn=clear_input,inputs=[],outputs=[question,answer])
     a.click(fn=greeta,inputs=[],outputs=[imagew,introduction])
