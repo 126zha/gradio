@@ -7,7 +7,18 @@ description = "点击按钮，向AI提关于该文物的问题"
 
 situation = ''
 
-def greet(relic):
+def greet(relic: str) -> function:
+    """The function should return a function, in which the image and introduction to the relic will be provided.
+    
+    Parameters:
+    ----------
+    relic : str
+        A modified string transmitted from Gradio.Button. If this attribute cannot open file, 'None' will be returned for image, and an empty string will be returned for intro.
+    
+    Return Value:
+    ----------
+    A function. The function will return a tuple in format (image, introduction).
+    """
     #print(relic)
     try:
         image = Image.open(f"GradioTutorial/Artifacts/{relic}/pic.jpg")
@@ -23,6 +34,9 @@ def greet(relic):
     return func
 
 def ai(question):
+    """
+    A todo function, will be used to interact with AI,
+    """
     question = list(question)
     #for i in question:
      #   if i == '时':
@@ -37,6 +51,17 @@ def ai(question):
         return 'dd'
 
 def clear_input():
+    """
+    Clear the input and output of AI.
+
+    Parameters:
+    ----------
+    No Parameters.
+
+    Return Value:
+    ----------
+    A tuple with two empty string elements. The two strings will be returned to question block and answer block in Gradio Module to erase the content.
+    """
     return "",""
 
 with gr.Blocks() as demo:
