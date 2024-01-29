@@ -108,36 +108,37 @@ def clear_input():
 with gr.Blocks() as demo:
     gr.Markdown("# 博物馆小助手")
     gr.Markdown("点击按钮，向AI提关于该文物的问题")
+
     with gr.Row():
-        Button_A=gr.Button(name_refer["a"])
-        Button_B=gr.Button(name_refer["b"])
-        Button_C=gr.Button(name_refer["c"])
-        Button_D=gr.Button(name_refer["d"])
-    imagew = gr.Image()
-    introduction = gr.Textbox(label="introduction")
-    with gr.Column():
-        chatbot = gr.Chatbot()
-        question=gr.Textbox(label = "问题",
+        with gr.Box():
+            chatbot = gr.Chatbot()
+            question=gr.Textbox(label = "问题",
                             placeholder = "如果您有问题，可以在此进一步输入！",
                             interactive = True)
-        
-        def respond(message, chat_history):
-            bot_message = LLM_Reply(message)
-            chat_history.append((message, bot_message))
-            return "", chat_history
-        
-        question.submit(respond, [question, chatbot], [question, chatbot])
-    with gr.Row():
-        sbmt = gr.Button(value = "提交")
-        sbmt.click( fn = respond,
-                    inputs = [question, chatbot],
-                    outputs = [question, chatbot])  # abreviation for 'SUBMIT', in case of conflict
-                                                    # Buggy, cannot correctly submit the question
-        clear = gr.ClearButton([chatbot, question])
+            def respond(message, chat_history):
+                bot_message = LLM_Reply(message)
+                chat_history.append((message, bot_message))
+                return "", chat_history
+            question.submit(respond, [question, chatbot], [question, chatbot])
+            with gr.Row():
+                sbmt = gr.Button(value = "提交")
+                clear = gr.ClearButton([chatbot, question])
+        with gr.Box():
+            imagew = gr.Image()
+            with gr.Row():
+                Button_A=gr.Button(name_refer["a"])
+                Button_B=gr.Button(name_refer["b"])
+                Button_C=gr.Button(name_refer["c"])
+                Button_D=gr.Button(name_refer["d"])
+            introduction = gr.Textbox(label="introduction")
+    
     Button_A.click(fn=greet('a'),inputs=[],outputs=[imagew,introduction])
     Button_B.click(fn=greet('b'),inputs=[],outputs=[imagew,introduction])
     Button_C.click(fn=greet('c'),inputs=[],outputs=[imagew,introduction])
     Button_D.click(fn=greet('d'),inputs=[],outputs=[imagew,introduction])
+    sbmt.click( fn = respond,
+                inputs = [question, chatbot],
+                outputs = [question, chatbot])  # abreviation for 'SUBMIT', in case of conflict
 
 if __name__ == "__main__":
     demo.launch()
