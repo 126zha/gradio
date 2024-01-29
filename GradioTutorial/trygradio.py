@@ -128,11 +128,11 @@ with gr.Blocks() as demo:
         
         question.submit(respond, [question, chatbot], [question, chatbot])
     with gr.Row():
-        sbmt = gr.Button(value = "提交",
-                         fn = respond,
-                         inputs = [question, chatbot],
-                         outputs = [question, chatbot]) # abreviation for 'SUBMIT', in case of conflict
-                                                        # Buggy, cannot correctly submit the question
+        sbmt = gr.Button(value = "提交")
+        sbmt.click( fn = respond,
+                    inputs = [question, chatbot],
+                    outputs = [question, chatbot])  # abreviation for 'SUBMIT', in case of conflict
+                                                    # Buggy, cannot correctly submit the question
         clear = gr.ClearButton([chatbot, question])
     Button_A.click(fn=greet('a'),inputs=[],outputs=[imagew,introduction])
     Button_B.click(fn=greet('b'),inputs=[],outputs=[imagew,introduction])
