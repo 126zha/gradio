@@ -106,7 +106,7 @@ def clear_input():
 
 ########################  MAIN  ########################
 with gr.Blocks() as demo:
-    gr.Markdown("#博物馆小助手")
+    gr.Markdown("# 博物馆小助手")
     gr.Markdown("点击按钮，向AI提关于该文物的问题")
     with gr.Row():
         Button_A=gr.Button(name_refer["a"])
