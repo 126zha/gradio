@@ -1,6 +1,7 @@
 import gradio as gr
 from PIL import Image
 import zhipuai
+from zhipuai import ZhipuAI
 
 name_refer = {
     "a": "马踏飞燕",
@@ -9,7 +10,7 @@ name_refer = {
     "d": "TestNameD"
 }
 
-zhipuai.api_key = "c075c10b0d98a821e49af2ba4b5b1424.xk4AlAwO9oUiOEyw"
+client = ZhipuAI(api_key = "c075c10b0d98a821e49af2ba4b5b1424.xk4AlAwO9oUiOEyw")
 
 history = []
 
@@ -71,20 +72,15 @@ def LLM_Reply(question: str) -> str:
     history.append(
         {"role":"user", "content":question}
     )
-    response = zhipuai.model_api.invoke(
+    response = client.chat.completions.create(
         model = "glm-3-turbo",
-        prompt = history,
-        temperature = .05,
+        messages = history,
     )
-    answer = ""
-    if (response["success"]):
-        answer = response['data']['choices'][0]['content']
-    else:
-        answer = response['msg']
+    answer = response.choices[0].message.content
     history.append(
         {"role":"assistant", "content":answer}
     )
-    #""" ADD # TO DEBUG, DEL TO UNDO
+    """ ADD # TO DEBUG, DEL TO UNDO
     print(answer)
     print(history)
     #"""
@@ -110,7 +106,7 @@ with gr.Blocks() as demo:
     gr.Markdown("点击按钮，向AI提关于该文物的问题")
 
     with gr.Row():
-        with gr.Box():
+        with gr.Group():
             chatbot = gr.Chatbot()
             question=gr.Textbox(label = "问题",
                             placeholder = "如果您有问题，可以在此进一步输入！",
@@ -123,7 +119,7 @@ with gr.Blocks() as demo:
             with gr.Row():
                 sbmt = gr.Button(value = "提交")
                 clear = gr.ClearButton([chatbot, question])
-        with gr.Box():
+        with gr.Group():
             imagew = gr.Image()
             with gr.Row():
                 Button_A=gr.Button(name_refer["a"])
