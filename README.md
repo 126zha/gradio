@@ -1,6 +1,7 @@
 # Museum Introduction WEB UI
 The project is a simple demo of the application of AI in the field of museum introduction. The purpose of this demo is to demonstrate the potential use of LLM in the introduction to the relics whilst no introducer is available.
 ## How To Use
+write before,we should open the file gradio so that we can get the way to the pictures. if we open "GradioTutorial" we will find chatbot run correctly but cannot find the picture.
 1. Download Python3. It may take a while.
 2. Prepare required package: Download Gradio and ZhipuAI by
 ```shell
