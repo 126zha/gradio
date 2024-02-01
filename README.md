@@ -12,5 +12,6 @@ pip install zhipuai==2.0.1
 python3 trygradio.py
 ```
 1. Wait until message "Running on local URL:  http://127.0.0.1:7860" is shown, then open the URL in a browser. E.g. Firefox, Chrome. Notice that the WEB UI should be used whilst the Internet connection is established.
+2. Maybe after we use open to the function launch we can get a new way to reach the web.
 ## WEB UI Introduction
 Click the button to display the according information and picture of the relic. The AI will provide basic information. If further information is required, ask AI in the 'Question' Box, the AI will soon reply.
