@@ -5,9 +5,9 @@ from zhipuai import ZhipuAI
 
 name_refer = {
     "a": "马踏飞燕",
-    "b": "TestNameB",
-    "c": "TestNameC",
-    "d": "TestNameD"
+    "b": "仪礼简",
+    "c": "人头形器口彩陶瓶",
+    "d": "东罗马神人纹鎏金银盘"
 }
 
 client = ZhipuAI(api_key = "c075c10b0d98a821e49af2ba4b5b1424.xk4AlAwO9oUiOEyw")
@@ -107,7 +107,7 @@ with gr.Blocks() as demo:
 
     with gr.Row():
         with gr.Group():
-            chatbot = gr.Chatbot()
+            chatbot = gr.Chatbot(height=300)
             question=gr.Textbox(label = "问题",
                             placeholder = "如果您有问题，可以在此进一步输入！",
                             interactive = True)
@@ -120,7 +120,7 @@ with gr.Blocks() as demo:
                 sbmt = gr.Button(value = "提交")
                 clear = gr.ClearButton([chatbot, question])
         with gr.Group():
-            imagew = gr.Image()
+            imagew = gr.Image(height=260)
             with gr.Row():
                 Button_A=gr.Button(name_refer["a"])
                 Button_B=gr.Button(name_refer["b"])
