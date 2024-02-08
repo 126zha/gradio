@@ -126,7 +126,7 @@ with gr.Blocks() as demo:
                 sbmt = gr.Button(value = "提交")
                 clear = gr.ClearButton([chatbot, question])
         with gr.Group():
-            imagew = gr.Image(height=260)
+            imagew = gr.Image()
             with gr.Row():
                 Button_A=gr.Button(name_refer["a"])
                 Button_B=gr.Button(name_refer["b"])
