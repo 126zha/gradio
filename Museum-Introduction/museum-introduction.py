@@ -2,6 +2,7 @@ import gradio as gr
 from PIL import Image
 import zhipuai
 from zhipuai import ZhipuAI
+import os
 
 name_refer = {
     "a": "马踏飞燕",
@@ -32,20 +33,30 @@ def greet(relic: str):
     ----------
     A function. The function will return a tuple in format (image, introduction).
     """
+    script_dir = os.path.dirname(__file__)
+    path = os.path.join(script_dir, "Artifacts", relic)
+    img_path = os.path.join(path, "pic.jpg")
+    intro_path = os.path.join(path, "intro.txt")
+    '''
     try:
-        image = Image.open(f"GradioTutorial/Artifacts/{relic}/pic.jpg")
-        intro = open(f"GradioTutorial/Artifacts/{relic}/intro.txt", "r").read()
+        print(os.path.isfile(img_path))
+        print(os.path.isfile(intro_path))
+    '''    
+    image = Image.open(img_path, "r")
+    intro = open(intro_path, "r", encoding="UTF-8").read()
+    '''
     except:
-        print(f"Failed to open File with argument relic_id = {relic}.")
+        print(f"Failed to open File with argument relic_id = {relic} with path = {img_path, intro_path}")
         image = None
         intro = ""
+    '''
     global situation
     situation = relic
     
     def func():
         global history
         prompt = f"""
-你是一个人工智能助手。现在，你将被提供一份关于{name_refer[relic]}的简介。
+你是一个人工智能助手。现在，你将被提供一份关于文物“{name_refer[relic]}”的简介。
 {intro}
 请根据接下来的提问，结合这一份简介作出回答。"""
         history = [
