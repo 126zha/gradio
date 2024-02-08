@@ -37,19 +37,14 @@ def greet(relic: str):
     path = os.path.join(script_dir, "Artifacts", relic)
     img_path = os.path.join(path, "pic.jpg")
     intro_path = os.path.join(path, "intro.txt")
-    '''
+    
     try:
-        print(os.path.isfile(img_path))
-        print(os.path.isfile(intro_path))
-    '''    
-    image = Image.open(img_path, "r")
-    intro = open(intro_path, "r", encoding="UTF-8").read()
-    '''
+        image = Image.open(img_path, "r")
+        intro = open(intro_path, "r", encoding="UTF-8").read()
     except:
         print(f"Failed to open File with argument relic_id = {relic} with path = {img_path, intro_path}")
         image = None
         intro = ""
-    '''
     global situation
     situation = relic
     
